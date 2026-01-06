@@ -12,7 +12,7 @@ const selectIdDropDown = document.getElementById("selectId");
 const dataList = document.getElementById("dataList");
 const stringListOfbookamrs = document.getElementById("stringListOfbookamrs");
 
-const submitBookmark = document.getElementById("submitBookmark");
+const addBookmarkForm = document.getElementById("addBookmarkForm");
 const bookmarkTitleInput = document.getElementById("bookmarkTitleInput");
 const bookmarkDescriptionInput = document.getElementById("bookmarkDescriptionInput");
 const bookmarkLinkInput = document.getElementById("bookmarkLinkInput");
@@ -20,7 +20,7 @@ const bookmarkLinkInput = document.getElementById("bookmarkLinkInput");
 const users = getUserIds();
 let selectedId = 1; // default
 
-const newData = [ 
+const newData = [
 	{ title: "here", description: "hello this is me!", link: "https://google.com", timestamp: Date.now() },
 	{ title: "here2", description: "hello this is me!2", link: "https://facebookc.com", timestamp: Date.now() }
 ];
@@ -38,9 +38,7 @@ function setup () {
 
 		render ();
 
-		console.log(getData(selectedId));
 		if (getData(selectedId) == null || getData(selectedId).length < 1) {
-			stringListOfbookamrs.style.color = "red";
 			stringListOfbookamrs.textContent = "No bookmarks for this user";
 
 			return false;
@@ -48,7 +46,9 @@ function setup () {
 		showDataList(selectedId);
 	});
 	
-	submitBookmark.addEventListener("click", () => {
+	addBookmarkForm.addEventListener("submit", event => {
+		event.preventDefault();
+
 		const enteredTitle = bookmarkTitleInput.value;
 		const enteredDescription = bookmarkDescriptionInput.value;
 		const enteredLink = bookmarkLinkInput.value;
@@ -69,15 +69,6 @@ function setup () {
 		render ();
 		showDataList(selectedId);
 
-		console.log(JSON.stringify(getData(selectedId)));
-
-		// if (getData(selectedId) == null || getData(selectedId).length < 1) {
-		// 	stringListOfbookamrs.style.color = "red";
-		// 	stringListOfbookamrs.textContent = "No bookmarks for this user";
-
-		// 	return false;
-		// }
-		// showDataList(selectedId);
 	});
 };
 

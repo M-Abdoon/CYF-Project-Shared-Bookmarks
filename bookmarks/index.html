@@ -1,32 +1,37 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en-EN">
+  <head role="banner">
     <script type="module" src="script.js"></script>
+	<title>Save & Share Your Bookmarks</title>
   </head>
-  <body bgcolor="gray" align="center">
-	<label for="selectUserId">Choose a User Id</label>
+  <body bgcolor="gray" align="center" role="main">
 	<br>
-	<select name="selectUserId" id="selectId">
-	</select>
-	<hr width="50%">
-	<h3>Add a new Bookmark</h3>
-	<label for="bookmarkTitleInput">Bookmark title</label> <br>
-	<input type="text" name="bookmarkTitleInput" id="bookmarkTitleInput">
-	
-	<br><br>
+	<form name="addBookmarkForm" id="addBookmarkForm">
+		<label aria-label="selectUserId">
+			<select name="selectUserId" id="selectId">
+			</select>
+		</label>
+		<hr width="50%">
+		<h3>Add a new Bookmark</h3>
+		<label arial-label="bookmarkTitleInput">Bookmark title <br>
+			<input type="text" name="bookmarkTitleInput" id="bookmarkTitleInput">
+		</label>
+		
+		<br><br>
 
-	<label for="bookmarkLinkInput">Bookmark Link</label> <br>
-	<input type="text" name="bookmarkLinkInput" id="bookmarkLinkInput">
+		<label for="bookmarkLinkInput">Bookmark Link</label> <br>
+		<input type="text" name="bookmarkLinkInput" id="bookmarkLinkInput">
 
-	<br><br>
+		<br><br>
 
-	<label for="bookmarkDescriptionInput">Bookmark Description</label> <br>
-	<textarea name="bookmarkDescriptionInput" id="bookmarkDescriptionInput" rows="4"></textarea>
+		<label for="bookmarkDescriptionInput">Bookmark Description</label> <br>
+		<textarea name="bookmarkDescriptionInput" id="bookmarkDescriptionInput" rows="4"></textarea>
 
-	<br><br>
-	
-	<input id="submitBookmark" type="submit">
-	<hr width="50%">
+		<br><br>
+		
+		<button id="submitBookmark" type="submit"> Add </button>
+		<hr width="50%">
+	</form>
 
 	<h3 id="stringListOfbookamrs">The list of bookmarks for the relevant user</h3>
 	<h3 id="dataList"></h3>
