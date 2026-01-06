@@ -8,20 +8,70 @@ import { setData } from "./storage.js";
 import { getUserIds } from "./storage.js";
 import { clearData } from "./storage.js";
 
+const selectIdDropDown = document.getElementById("selectId");
+const dataList = document.getElementById("dataList");
 
-window.onload = function () {
-	setData("1", { title: "here", description: "hello this is me!" });
 
+const newData = [ 
+	{ title: "here", description: "hello this is me!", link: "https://google.com", timestamp: Date.now() },
+	{ title: "here2", description: "hello this is me!2", link: "https://facebookc.com", timestamp: Date.now() }
+];
+setData("1", newData);
+
+function setup () {
+	
 	const users = getUserIds();
-	const dataOfUser = getData(1);
+	
+	fillDropdown(users);
+	
+	showDataList(1);
 
-	//document.querySelector("body").textContent = `There are ${users.length} users || `;
+	selectIdDropDown.addEventListener("change", () => {
+		const selectedId = selectIdDropDown.value;
+		console.log(selectedId);
+		// render ();
 
-	//document.querySelector("body").textContent += JSON.stringify(dataOfUser);
-
-	//clearData(1);
-	localStorage.clear();
-
-	//document.querySelector("body").textContent += `${JSON.stringify(dataOfUser)} d`;
-
+		showDataList(selectedId);
+	});
+	
 };
+
+function fillDropdown (userIds) {
+	userIds.forEach(( id ) => {
+		const createOption = document.createElement("option");
+		createOption.value = id;
+		createOption.text = "User Id Number " + id;
+		selectIdDropDown.appendChild(createOption);
+	});
+}
+
+function showDataList(dataOfUser) {
+	
+	dataOfUser = getData(dataOfUser);
+	
+	dataOfUser.forEach(( item ) => {
+		
+		const p = document.createElement("p");
+		const a = document.createElement("a");
+		const desc = document.createElement("p");
+		const timestamp = document.createElement("p");
+		const hr = document.createElement("hr");
+		
+		a.href = item.link;
+		a.textContent = item.title;
+		
+		p.appendChild(a);
+		
+		desc.textContent = item.description;
+		timestamp.textContent = item.timestamp;
+		hr.width = "10%";
+		
+		dataList.appendChild(p);
+		dataList.appendChild(desc);
+		dataList.appendChild(timestamp);
+		dataList.appendChild(hr);
+		
+	});
+};
+
+window.onload = setup();
