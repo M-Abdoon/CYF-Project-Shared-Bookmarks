@@ -10,7 +10,7 @@ import { clearData } from "./storage.js";
 
 const selectIdDropDown = document.getElementById("selectId");
 const dataList = document.getElementById("dataList");
-const stringListOfBookamrs = document.getElementById("stringListOfBookamrs");
+const stringListOfBookMarks = document.getElementById("stringListOfBookMarks");
 const clearAllData = document.getElementById("clearAllData");
 
 const addBookmarkForm = document.getElementById("addBookmarkForm");
@@ -31,12 +31,6 @@ function setup () {
 		selectedId = selectIdDropDown.value;
 
 		render ();
-
-		if (getData(selectedId) == null || getData(selectedId).length < 1) {
-			stringListOfBookamrs.textContent = "No bookmarks for this user";
-			return false;
-		}
-
 		showDataList(selectedId);
 	});
 	
@@ -93,15 +87,22 @@ function fillDropdown (userIds) {
 
 function render() {
 	dataList.innerHTML = "";
-	stringListOfBookamrs.innerHTML = "";
+	stringListOfBookMarks.innerHTML = "";
 };
 
 function showDataList(userId) {
-
 	const dataOfUser = getData(userId);
 
-	if(dataOfUser == null || dataOfUser.length == 0)
+	if(dataOfUser === null || Object.keys(dataOfUser).length < 1) {
+		stringListOfBookMarks.textContent = "No bookmarks for this user";
+		dataList.style.display = "none";
 		return false;
+	} else {
+		stringListOfBookMarks.textContent = "The list of bookmarks for the relevant user";
+		dataList.style.display = "block";
+		
+	}
+	
 	
 	dataOfUser.sort((a, b) => b.timestamp - a.timestamp);
 	dataOfUser.forEach(( item ) => {
