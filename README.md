@@ -1,9 +1,8 @@
-<<<<<<< HEAD
-# preparing-for-piscine
-make projects to get prepared for the CYF Piscine  + practice Javascript
-=======
 # CYF-Project-Shared-Bookmarks
-Bookmarks sharing web page. 
+
+Bookmarks sharing web page.
+
+[Live Demo](https://abdoon-shared-bookmarks.netlify.app/)
 
 # Project: Shared Bookmarks
 
@@ -48,6 +47,7 @@ You **must not** implement any kind of authentication. Just a drop-down to choos
 After picking a user, your website should display the list of bookmarks in reverse chronological order. For each bookmark, it should display the title and description of the bookmark. The title should be hyperlink to the URL of the bookmark. The timestamp at which the bookmark was created should be displayed.
 
 Each bookmark should also have:
+
 - A button which, when clicked, copies the URL to the clipboard.
 - A like counter/button. When a bookmark is first saved, its like count should be 0. Each time a user clicks the like button, that number should go up by one, and be displayed. This like count should be persisted such that closing the page and coming back to it, it is preserved.
 
@@ -76,4 +76,4 @@ All of the below requirements must be met for the project to be considered compl
 - After creating a new bookmark, the list of bookmarks for the current user is shown, including the new bookmark
 - The website must score 100 for accessibility in Lighthouse
 - Unit tests must be written for at least one non-trivial function
->>>>>>> e5ff360acbf29be4b392fc470408e4dc3aacfbd9
+  > > > > > > > e5ff360acbf29be4b392fc470408e4dc3aacfbd9
