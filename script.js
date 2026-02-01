@@ -93,16 +93,14 @@ function render() {
 function showDataList(userId) {
 	const dataOfUser = getData(userId);
 
-	if(dataOfUser === null || Object.keys(dataOfUser).length < 1) {
+	if(dataOfUser === null || dataOfUser.length < 1) {
 		stringListOfBookMarks.textContent = "No bookmarks for this user";
 		dataList.style.display = "none";
 		return false;
 	} else {
 		stringListOfBookMarks.textContent = "The list of bookmarks for the relevant user";
 		dataList.style.display = "block";
-		
 	}
-	
 	
 	dataOfUser.sort((a, b) => b.timestamp - a.timestamp);
 	dataOfUser.forEach(( item ) => {
@@ -111,22 +109,29 @@ function showDataList(userId) {
 		const displayedLink = item.link;
 		const displayedDesc = item.description;
 
+		const bookMarkDiv = document.createElement("div");
+		bookMarkDiv.className = "bookmark";
+
 		const link = document.createElement("a");
 		link.href = displayedLink;
 		link.textContent = displayedTitle;
 
 		const title = document.createElement("p");
+		title.className = "bookmark-title";
 		title.appendChild(link);
 
+		const time = document.createElement("p");
+		time.className = "bookmark-time";
+		time.textContent = displayedTime;
+
 		const desc = document.createElement("p");
+		desc.className = "bookmark-desc";
 		desc.textContent = displayedDesc;
 
-		const time = document.createElement("p");
-		time.textContent = displayedTime;
-		
-		dataList.appendChild(title);
-		dataList.appendChild(desc);
-		dataList.appendChild(time);
+		bookMarkDiv.appendChild(title);
+		bookMarkDiv.appendChild(time);
+		bookMarkDiv.appendChild(desc);
+		dataList.appendChild(bookMarkDiv);
 		
 	});
 };
