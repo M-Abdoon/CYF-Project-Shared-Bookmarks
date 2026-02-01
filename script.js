@@ -105,30 +105,27 @@ function showDataList(userId) {
 	
 	dataOfUser.sort((a, b) => b.timestamp - a.timestamp);
 	dataOfUser.forEach(( item ) => {
-		
 		const p = document.createElement("p");
 		const a = document.createElement("a");
-		const font = document.createElement("font");
+		const span = document.createElement("span");
 		const desc = document.createElement("p");
 		const timestamp = document.createElement("p");
-		const hr = document.createElement("hr");
 		
+		item.timestamp = new Date(item.timestamp).toDateString();
 		a.href = item.link;
 		
-		font.textContent = item.title;
-		font.color = "black";
+		span.textContent = item.title;
+		span.color = "black";
 
-		a.appendChild(font);
+		a.appendChild(span);
 		p.appendChild(a);
 		
 		desc.textContent = item.description;
-		timestamp.textContent = item.timestamp;
-		hr.width = "10%";
+		timestamp.textContent = item.timestamp
 		
 		dataList.appendChild(p);
 		dataList.appendChild(desc);
 		dataList.appendChild(timestamp);
-		dataList.appendChild(hr);
 		
 	});
 };
