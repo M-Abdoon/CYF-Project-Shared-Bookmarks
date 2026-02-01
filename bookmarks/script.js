@@ -10,7 +10,7 @@ import { clearData } from "./storage.js";
 
 const selectIdDropDown = document.getElementById("selectId");
 const dataList = document.getElementById("dataList");
-const stringListOfbookamrs = document.getElementById("stringListOfbookamrs");
+const stringListOfBookamrs = document.getElementById("stringListOfBookamrs");
 const clearAllData = document.getElementById("clearAllData");
 
 const addBookmarkForm = document.getElementById("addBookmarkForm");
@@ -33,7 +33,7 @@ function setup () {
 		render ();
 
 		if (getData(selectedId) == null || getData(selectedId).length < 1) {
-			stringListOfbookamrs.textContent = "No bookmarks for this user";
+			stringListOfBookamrs.textContent = "No bookmarks for this user";
 			return false;
 		}
 
@@ -93,7 +93,7 @@ function fillDropdown (userIds) {
 
 function render() {
 	dataList.innerHTML = "";
-	stringListOfbookamrs.innerHTML = "";
+	stringListOfBookamrs.innerHTML = "";
 };
 
 function showDataList(userId) {
