@@ -93,12 +93,12 @@ hr {
 .bookmark-title {
 	font-weight: bold;
 	color: #4f46e5;
-	text-decoration: none;
+	text-decoration: underline;
 	font-size: 16px;
 }
 
 .bookmark-title:hover {
-	text-decoration: underline;
+	text-decoration:overline;
 }
 
 .bookmark-desc {
