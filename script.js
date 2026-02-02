@@ -10,7 +10,7 @@ import { clearData } from "./storage.js";
 
 const selectIdDropDown = document.getElementById("selectId");
 const dataList = document.getElementById("dataList");
-const stringListOfBookamrs = document.getElementById("stringListOfBookamrs");
+const stringListOfBookMarks = document.getElementById("stringListOfBookMarks");
 const clearAllData = document.getElementById("clearAllData");
 
 const addBookmarkForm = document.getElementById("addBookmarkForm");
@@ -31,12 +31,6 @@ function setup () {
 		selectedId = selectIdDropDown.value;
 
 		render ();
-
-		if (getData(selectedId) == null || getData(selectedId).length < 1) {
-			stringListOfBookamrs.textContent = "No bookmarks for this user";
-			return false;
-		}
-
 		showDataList(selectedId);
 	});
 	
@@ -93,42 +87,51 @@ function fillDropdown (userIds) {
 
 function render() {
 	dataList.innerHTML = "";
-	stringListOfBookamrs.innerHTML = "";
+	stringListOfBookMarks.innerHTML = "";
 };
 
 function showDataList(userId) {
-
 	const dataOfUser = getData(userId);
 
-	if(dataOfUser == null || dataOfUser.length == 0)
+	if(dataOfUser === null || dataOfUser.length < 1) {
+		stringListOfBookMarks.textContent = "No bookmarks for this user";
+		dataList.style.display = "none";
 		return false;
+	} else {
+		stringListOfBookMarks.textContent = "The list of bookmarks for the relevant user";
+		dataList.style.display = "block";
+	}
 	
 	dataOfUser.sort((a, b) => b.timestamp - a.timestamp);
 	dataOfUser.forEach(( item ) => {
-		
-		const p = document.createElement("p");
-		const a = document.createElement("a");
-		const font = document.createElement("font");
-		const desc = document.createElement("p");
-		const timestamp = document.createElement("p");
-		const hr = document.createElement("hr");
-		
-		a.href = item.link;
-		
-		font.textContent = item.title;
-		font.color = "black";
+		const displayedTime = new Date(item.timestamp).toDateString();
+		const displayedTitle = item.title;
+		const displayedLink = item.link;
+		const displayedDesc = item.description;
 
-		a.appendChild(font);
-		p.appendChild(a);
-		
-		desc.textContent = item.description;
-		timestamp.textContent = item.timestamp;
-		hr.width = "10%";
-		
-		dataList.appendChild(p);
-		dataList.appendChild(desc);
-		dataList.appendChild(timestamp);
-		dataList.appendChild(hr);
+		const bookMarkDiv = document.createElement("div");
+		bookMarkDiv.className = "bookmark";
+
+		const link = document.createElement("a");
+		link.href = displayedLink;
+		link.textContent = displayedTitle;
+
+		const title = document.createElement("p");
+		title.className = "bookmark-title";
+		title.appendChild(link);
+
+		const time = document.createElement("p");
+		time.className = "bookmark-time";
+		time.textContent = displayedTime;
+
+		const desc = document.createElement("p");
+		desc.className = "bookmark-desc";
+		desc.textContent = displayedDesc;
+
+		bookMarkDiv.appendChild(title);
+		bookMarkDiv.appendChild(time);
+		bookMarkDiv.appendChild(desc);
+		dataList.appendChild(bookMarkDiv);
 		
 	});
 };
