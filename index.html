@@ -6,8 +6,6 @@
 	<title>Save & Share Your Bookmarks</title>
   </head>
   <body role="main">
-	  <a href=""><span id="clearAllData">Click here to reset data</span></a>
-	  
 	<form name="addBookmarkForm" id="addBookmarkForm">
 		<label aria-label="selectUserId">
 			<select name="selectUserId" id="selectId">
@@ -22,6 +20,7 @@
 		<label for="bookmarkDescriptionInput">Bookmark Description</label> 
 		<textarea name="bookmarkDescriptionInput" id="bookmarkDescriptionInput" rows="4"></textarea>
 		<button id="submitBookmark" type="submit"> Add </button>
+		<p id="StringBookMarkAdded" style="color: green;"></p>
 	</form>
 
 	<h3 id="stringListOfBookMarks"></h3>
