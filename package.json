@@ -1,0 +1,20 @@
+{
+  "name": "cyf-project-shared-bookmarks",
+  "version": "1.0.0",
+  "description": "Bookmarks sharing web page.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/M-Abdoon/CYF-Project-Shared-Bookmarks.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/M-Abdoon/CYF-Project-Shared-Bookmarks/issues"
+  },
+  "homepage": "https://github.com/M-Abdoon/CYF-Project-Shared-Bookmarks#readme",
+  "type": "module"
+}

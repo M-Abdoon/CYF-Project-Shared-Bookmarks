@@ -4,13 +4,14 @@
 // Note that when running locally, in order to open a web page which uses modules, you must serve the directory over HTTP e.g. with https://www.npmjs.com/package/http-server
 // You can't open the index.html file using a file:// URL.
 import { getData } from "./storage.js";
-import { setData } from "./storage.js";
 import { getUserIds } from "./storage.js";
 import { clearData } from "./storage.js";
+import { enterData } from "./logic.js";
 
 const selectIdDropDown = document.getElementById("selectId");
 const dataList = document.getElementById("dataList");
 const stringListOfBookMarks = document.getElementById("stringListOfBookMarks");
+const StringBookMarkAdded = document.getElementById("StringBookMarkAdded");
 const clearAllData = document.getElementById("clearAllData");
 
 const addBookmarkForm = document.getElementById("addBookmarkForm");
@@ -41,40 +42,20 @@ function setup () {
 		const enteredLink = bookmarkLinkInput.value;
 		const enteredDescription = bookmarkDescriptionInput.value;
 
-		enterData(enteredTitle, enteredLink, enteredDescription);
+		const enterDataCheck = enterData(enteredTitle, enteredLink, enteredDescription, selectedId);
+
+		if(enterDataCheck === false) {
+			alert("all fields must be filled");
+			return false;
+		}
 
 		render ();
 
+		StringBookMarkAdded.innerHTML = "Bookmark successfully added";
+
 		showDataList(selectedId);
-
-	});
-
-	clearAllData.addEventListener("click", () => {
-		clearAllDataFunc();
-		render();
 	});
 };
-
-function enterData (enteredTitle, enteredLink, enteredDescription) {
-
-	if( enteredTitle == "" || enteredLink == "" || enteredDescription == "") {
-		alert("all fields must be filled");
-		return false;
-	}
-
-	let getUserBookmark = getData(selectedId) ?? [];
-	
-	const newEntryJson = { 
-		title: enteredTitle, 
-		link: enteredLink, 
-		description: enteredDescription, 
-		timestamp: Date.now()
-	};
-
-	getUserBookmark.push(newEntryJson);
-
-	setData(selectedId, getUserBookmark);
-}
 
 function fillDropdown (userIds) {
 	userIds.forEach(( id ) => {
@@ -88,6 +69,9 @@ function fillDropdown (userIds) {
 function render() {
 	dataList.innerHTML = "";
 	stringListOfBookMarks.innerHTML = "";
+	bookmarkTitleInput.value = "";
+	bookmarkLinkInput.value = "";
+	bookmarkDescriptionInput.value = "";
 };
 
 function showDataList(userId) {
@@ -108,6 +92,7 @@ function showDataList(userId) {
 		const displayedTitle = item.title;
 		const displayedLink = item.link;
 		const displayedDesc = item.description;
+		const displayedLikes = item.likes;
 
 		const bookMarkDiv = document.createElement("div");
 		bookMarkDiv.className = "bookmark";
@@ -128,18 +113,46 @@ function showDataList(userId) {
 		desc.className = "bookmark-desc";
 		desc.textContent = displayedDesc;
 
+		const copyBtn = document.createElement("button");
+		copyBtn.className = "copyLink";
+		copyBtn.style.padding = "4px";
+		copyBtn.innerHTML = "Copy";
+		copyBtn.addEventListener("click", () => {
+			navigator.clipboard.writeText(displayedLink).then(() => {
+				copyBtn.innerHTML = "Copied!";
+				copyBtn.style.background = "green";
+			});
+		});
+
+		const likeCounter = document.createElement("p");
+		likeCounter.style.cursor = "pointer";
+		likeCounter.style.margin = "0";
+		likeCounter.textContent = `💙 ${displayedLikes}`;
+
+		likeCounter.addEventListener("click", () => {
+			//addLike();
+			
+		const getLikesValue = JSON.parse(localStorage[`stored-data-user-${userId}`]);
+		
+		getLikesValue[0].likes = displayedLikes + 1;
+
+		localStorage[`stored-data-user-${userId}`] = JSON.stringify(getLikesValue);
+			
+		likeCounter.textContent = `♥️ ${displayedLikes+1}`;
+		});
+
+		const bookMarkActions = document.createElement("div");
+		bookMarkActions.className = "bookMarkActions";
+		bookMarkActions.appendChild(copyBtn);
+		bookMarkActions.appendChild(likeCounter);
+
 		bookMarkDiv.appendChild(title);
 		bookMarkDiv.appendChild(time);
 		bookMarkDiv.appendChild(desc);
+		bookMarkDiv.appendChild(bookMarkActions);
 		dataList.appendChild(bookMarkDiv);
 		
 	});
 };
-
-function clearAllDataFunc() {
-	getUserIds().forEach((userId) => {
-		clearData(userId);
-	});
-}
 
 window.onload = setup();
