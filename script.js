@@ -5,7 +5,6 @@
 // You can't open the index.html file using a file:// URL.
 import { getData } from "./storage.js";
 import { getUserIds } from "./storage.js";
-import { clearData } from "./storage.js";
 import { enterData } from "./logic.js";
 
 const selectIdDropDown = document.getElementById("selectId");
@@ -19,7 +18,7 @@ const bookmarkDescriptionInput = document.getElementById("bookmarkDescriptionInp
 const bookmarkLinkInput = document.getElementById("bookmarkLinkInput");
 
 const users = getUserIds();
-let selectedId = 1; // default
+let selectedId = 1;
 
 function setup () {
 	

@@ -3,9 +3,15 @@ import { getData } from "./storage.js";
 
 export function enterData (enteredTitle, enteredLink, enteredDescription, userId) {
 
-	if( enteredTitle === "" || enteredLink === "" || enteredDescription === "") {
+	if( !enteredTitle || !enteredLink || !enteredDescription || !userId )
 		return false;
-	}
+
+	if( typeof enteredTitle !== "string" ||
+		typeof enteredLink !== "string" || 
+		typeof enteredDescription !== "string" || 
+		typeof userId !== "number" 
+	)
+		return false;
 
 	let getUserBookmark = getData(userId) ?? [];
 	
@@ -19,5 +25,6 @@ export function enterData (enteredTitle, enteredLink, enteredDescription, userId
 
 	getUserBookmark.push(newEntryJson);
 
-	setData(userId, getUserBookmark);
+	if(!setData(userId, getUserBookmark))
+		return false;
 }
