@@ -27,7 +27,7 @@ function setup () {
 	showDataList(1);
 
 	selectIdDropDown.addEventListener("change", () => {
-		selectedId = selectIdDropDown.value;
+		selectedId = Number(selectIdDropDown.value);
 
 		render ();
 		showDataList(selectedId);
