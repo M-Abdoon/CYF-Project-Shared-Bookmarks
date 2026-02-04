@@ -87,7 +87,6 @@ function showDataList(userId) {
 	}
 	
 	dataOfUser.sort((a, b) => b.timestamp - a.timestamp);
-	console.log(dataOfUser);
 
 	dataOfUser.forEach((item, id) => {
 		const displayedTime		= new Date(item.timestamp).toDateString();
