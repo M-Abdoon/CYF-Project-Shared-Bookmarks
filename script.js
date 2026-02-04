@@ -75,7 +75,7 @@ function render() {
 };
 
 function showDataList(userId) {
-	const dataOfUser = getData(userId);
+	let dataOfUser = getData(userId);
 
 	if(dataOfUser === null || dataOfUser.length < 1) {
 		stringListOfBookMarks.textContent = "No bookmarks for this user";
@@ -87,12 +87,14 @@ function showDataList(userId) {
 	}
 	
 	dataOfUser.sort((a, b) => b.timestamp - a.timestamp);
-	dataOfUser.forEach(( item ) => {
-		const displayedTime = new Date(item.timestamp).toDateString();
-		const displayedTitle = item.title;
-		const displayedLink = item.link;
-		const displayedDesc = item.description;
-		const displayedLikes = item.likes;
+	console.log(dataOfUser);
+
+	dataOfUser.forEach((item, id) => {
+		const displayedTime		= new Date(item.timestamp).toDateString();
+		const displayedTitle	= item.title;
+		const displayedLink		= item.link;
+		const displayedDesc		= item.description;
+		const displayedLikes	= item.likes;
 
 		const bookMarkDiv = document.createElement("div");
 		bookMarkDiv.className = "bookmark";
@@ -130,15 +132,14 @@ function showDataList(userId) {
 		likeCounter.textContent = `💙 ${displayedLikes}`;
 
 		likeCounter.addEventListener("click", () => {
-			//addLike();
-			
-		const getLikesValue = JSON.parse(localStorage[`stored-data-user-${userId}`]);
-		
-		getLikesValue[0].likes = displayedLikes + 1;
 
-		localStorage[`stored-data-user-${userId}`] = JSON.stringify(getLikesValue);
+			let OriginalUnorderedData = JSON.parse(localStorage[`stored-data-user-${userId}`]);
+		
+			OriginalUnorderedData[OriginalUnorderedData.length - (id + 1)].likes = displayedLikes + 1;
+
+			localStorage[`stored-data-user-${userId}`] = JSON.stringify(OriginalUnorderedData);
 			
-		likeCounter.textContent = `♥️ ${displayedLikes+1}`;
+			likeCounter.textContent = `💗 ${displayedLikes+1}`;
 		});
 
 		const bookMarkActions = document.createElement("div");
