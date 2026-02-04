@@ -25,6 +25,5 @@ export function enterData (enteredTitle, enteredLink, enteredDescription, userId
 
 	getUserBookmark.push(newEntryJson);
 
-	if(!setData(userId, getUserBookmark))
-		return false;
+	setData(userId, getUserBookmark)
 }
