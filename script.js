@@ -11,8 +11,7 @@ import { enterData } from "./logic.js";
 const selectIdDropDown = document.getElementById("selectId");
 const dataList = document.getElementById("dataList");
 const stringListOfBookMarks = document.getElementById("stringListOfBookMarks");
-const StringBookMarkAdded = document.getElementById("StringBookMarkAdded");
-const clearAllData = document.getElementById("clearAllData");
+const stringBookMarkAdded = document.getElementById("stringBookMarkAdded");
 
 const addBookmarkForm = document.getElementById("addBookmarkForm");
 const bookmarkTitleInput = document.getElementById("bookmarkTitleInput");
@@ -51,7 +50,7 @@ function setup () {
 
 		render ();
 
-		StringBookMarkAdded.innerHTML = "Bookmark successfully added";
+		stringBookMarkAdded.innerHTML = "Bookmark successfully added";
 
 		showDataList(selectedId);
 	});
@@ -67,11 +66,12 @@ function fillDropdown (userIds) {
 };
 
 function render() {
-	dataList.innerHTML = "";
-	stringListOfBookMarks.innerHTML = "";
 	bookmarkTitleInput.value = "";
 	bookmarkLinkInput.value = "";
 	bookmarkDescriptionInput.value = "";
+	stringBookMarkAdded.innerHTML = "";
+	stringListOfBookMarks.innerHTML = "";
+	dataList.innerHTML = "";
 };
 
 function showDataList(userId) {
